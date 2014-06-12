@@ -18,12 +18,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
    config.vm.provider :rackspace do |rs|
-   rs.username = $RK_USERNAME
-   rs.api_key  = $RK_API_KEY
+   rs.username = ENV['RK_USERNAME']
+   rs.api_key  = ENV['RK_API_KEY']
    # rs.flavor   = /1 GB Performance/
    rs.flavor   = "2" #/512 MB Performanc
    rs.image    = /Ubuntu/
-   rs.rackspace_region = "HBK"
+   rs.rackspace_region = :hkg
   end
 
   # Create a forwarded port mapping which allows access to a specific port
