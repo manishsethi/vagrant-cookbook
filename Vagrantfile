@@ -14,12 +14,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    config.vm.box = "CentOS"
    config.vm.box_url = "http://files.vagrantup.com/precise64.box"
   config.vm.provider :rackspace do |rs|
-    rs.username = ENV['mohitsethi']
-    rs.api_key  = ENV['0a7be7803630be790cb7fbe98512b2e4']
+    rs.username = ENV['RK_USERNAME']
+    rs.api_key  = ENV['RK_API_KEY']
   # rs.flavor   = /1 GB Performance/
     rs.flavor   = "2" #/512 MB Performance/
     rs.image    = /Ubuntu/
-    rs.rackspace_region = "HBK"
+    rs.rackspace_region = :hkg
   end
   # if provider == :rackspace
   # config.ssh.private_key_path = "~/.ssh/id_rsa"
@@ -98,16 +98,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # path, and data_bags path (all relative to this Vagrantfile), and adding
   # some recipes and/or roles.
   #
-  # config.vm.provision "chef_solo" do |chef|
-  #   chef.cookbooks_path = "../my-recipes/cookbooks"
-  #   chef.roles_path = "../my-recipes/roles"
-  #   chef.data_bags_path = "../my-recipes/data_bags"
-  #   chef.add_recipe "mysql"
-  #   chef.add_role "web"
+    config.vm.provision "chef_solo" do |chef|
+     chef.cookbooks_path = "../my-recipes/cookbooks"
+     chef.roles_path = "../my-recipes/roles"
+     chef.data_bags_path = "../my-recipes/data_bags"
+     chef.add_recipe "mysql"
+     chef.add_role "web"
   #
   #   # You may also specify custom JSON attributes:
-  #   chef.json = { mysql_password: "foo" }
-  # end
+     chef.json = { mysql_password: "foo" }
+   end
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
