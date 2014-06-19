@@ -6,22 +6,24 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   Vagrant.require_plugin "vagrant-rackspace"
-  config.vm.box = "CentOS"
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  config.vm.provider :rackspace do |rs|
+  Vagrant.require_plugin "vagrant-windows"
+   config.vm.box = "windows"
+   config.vm.box = "CentOS"
+   config.vm.box_url = "https://s3.amazonaws.com/itmat-public/centos-6.3-chef-10.14.2.box"
+   config.vm.provider :rackspace do |rs|
     rs.username = ENV['RK_USERNAME']
     rs.api_key  = ENV['RK_API_KEY']
   # rs.flavor   = /1 GB Performance/
     rs.flavor   = "2" #/512 MB Performance/
-    rs.image    = /Ubuntu/
+    rs.image    = /CentOS/
     rs.rackspace_region = :hkg
   end
   # if provider == :rackspace
   # config.ssh.private_key_path = "~/.ssh/id_rsa"
   # end
 
-  config.vm.provision :shell, :inline =>  "apt-get update -y"
-  config.vm.provision :shell, :inline =>  "apt-get install curl -y"
+  config.vm.provision :shell, :inline =>  "yum update -y"
+  config.vm.provision :shell, :inline =>  "yum install curl -y"
   config.vm.provision :shell, :inline =>  "curl -L https://www.opscode.com/chef/install.sh | sudo bash"
   config.vm.provision "chef_solo" do |chef|
     chef.cookbooks_path = "cookbooks"
