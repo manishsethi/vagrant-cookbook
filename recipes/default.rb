@@ -25,10 +25,7 @@ node['vagrant']['plugins'].each do |plugin|
     vagrant_plugin plugin['name'] do
       version plugin['version']
     end
-
   else
-
     vagrant_plugin plugin
-
   end
 end
